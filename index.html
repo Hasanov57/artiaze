@@ -6,6 +6,8 @@
   <title>Artiaze - Student Technology Articles</title>
   <link rel="preconnect" href="https://images.unsplash.com">
   <link rel="stylesheet" href="styles.css">
+  <script src="supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <div class="app-shell">
@@ -167,7 +169,8 @@
             <span>Remember me on this device</span>
           </label>
           <button class="primary-action" type="submit">Log In</button>
-          <p class="auth-note">New student accounts are created automatically on first login. Admin: admin@artiaze.com / admin123</p>
+          <p class="auth-note">New students can create an account from this page. Your session can stay remembered on this device.</p>
+          <button class="text-button" type="button" id="modeSwitch">Create a student account</button>
         </form>
       </section>
     </main>
@@ -190,6 +193,6 @@
     </article>
   </template>
 
-  <script src="app.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>
