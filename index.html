@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artiaze - Student Technology Articles</title>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" data-route="home" aria-label="Artiaze home">
+        <span class="brand-mark">A</span>
+        <span>Artiaze</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#" data-route="home">Explore</a>
+        <a href="#" data-route="submit" data-auth-required="true">Submit</a>
+        <a href="#" data-route="dashboard" data-auth-required="true">My Studio</a>
+        <a href="#" data-route="admin" data-admin-only="true" class="admin-link hidden">Review</a>
+      </nav>
+
+      <div class="account-area" id="accountArea"></div>
+    </header>
+
+    <main>
+      <section class="view" id="homeView">
+        <div class="hero">
+          <div class="hero-content">
+            <p class="kicker">Student technology publishing</p>
+            <h1>Artiaze</h1>
+            <p class="hero-copy">A focused place for students to publish thoughtful writing on AI, cybersecurity, software, hardware, robotics, data, and the next wave of technology.</p>
+            <div class="hero-actions">
+              <button class="primary-action" data-route="submit" data-auth-required="true">Submit Article</button>
+              <button class="secondary-action" data-route="home">Browse Topics</button>
+            </div>
+          </div>
+        </div>
+
+        <section class="filters-panel" aria-label="Article filters">
+          <div class="search-wrap">
+            <label for="searchInput">Search</label>
+            <input id="searchInput" type="search" placeholder="Search title, author, tags, or article text">
+          </div>
+          <div class="filter-grid">
+            <label>
+              Topic
+              <select id="topicFilter"></select>
+            </label>
+            <label>
+              Field
+              <select id="fieldFilter"></select>
+            </label>
+            <label>
+              Tag
+              <select id="tagFilter"></select>
+            </label>
+            <label>
+              Sort
+              <select id="sortFilter">
+                <option value="latest">Latest</option>
+                <option value="views">Most viewed</option>
+                <option value="likes">Most liked</option>
+                <option value="comments">Most discussed</option>
+              </select>
+            </label>
+          </div>
+        </section>
+
+        <section class="topic-strip" id="topicStrip" aria-label="Popular topics"></section>
+        <section class="article-grid" id="articleGrid" aria-live="polite"></section>
+      </section>
+
+      <section class="view hidden" id="submitView">
+        <div class="page-heading">
+          <p class="kicker">Article submission</p>
+          <h2>Send a draft for review</h2>
+        </div>
+
+        <form class="editor-layout" id="articleForm">
+          <div class="form-panel">
+            <label>
+              Article title
+              <input name="title" required maxlength="110" placeholder="e.g. How edge AI changes smart classrooms">
+            </label>
+            <div class="two-col">
+              <label>
+                Topic
+                <input name="topic" required maxlength="40" placeholder="AI, Security, Web, Robotics">
+              </label>
+              <label>
+                Field
+                <select name="field" required>
+                  <option value="">Choose field</option>
+                  <option>Artificial Intelligence</option>
+                  <option>Cybersecurity</option>
+                  <option>Software Engineering</option>
+                  <option>Data Science</option>
+                  <option>Hardware</option>
+                  <option>Robotics</option>
+                  <option>Product Design</option>
+                  <option>Cloud Computing</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              Tags
+              <input name="tags" required placeholder="machine learning, education, ethics">
+            </label>
+            <label>
+              Summary
+              <textarea name="summary" required rows="4" maxlength="260" placeholder="A short summary for readers and reviewers"></textarea>
+            </label>
+            <label>
+              Article details
+              <textarea name="body" required rows="12" placeholder="Write the full article here"></textarea>
+            </label>
+            <button class="primary-action" type="submit">Submit for Review</button>
+          </div>
+
+          <aside class="side-panel">
+            <h3>Review status</h3>
+            <div id="submissionHint"></div>
+          </aside>
+        </form>
+      </section>
+
+      <section class="view hidden" id="dashboardView">
+        <div class="page-heading">
+          <p class="kicker">My Studio</p>
+          <h2>Your articles</h2>
+        </div>
+        <div class="stats-row" id="myStats"></div>
+        <section class="article-list" id="myArticleList"></section>
+      </section>
+
+      <section class="view hidden" id="adminView">
+        <div class="page-heading">
+          <p class="kicker">Admin review</p>
+          <h2>Pending submissions</h2>
+        </div>
+        <section class="review-list" id="reviewList"></section>
+      </section>
+
+      <section class="view hidden" id="articleView">
+        <article class="article-reader" id="articleReader"></article>
+      </section>
+
+      <section class="view hidden auth-view" id="authView">
+        <form class="auth-card" id="loginForm">
+          <div>
+            <p class="kicker">Welcome back</p>
+            <h2>Log in to Artiaze</h2>
+          </div>
+          <label>
+            Email
+            <input name="email" type="text" inputmode="email" autocomplete="email" required placeholder="student@example.com">
+          </label>
+          <label>
+            Password
+            <input name="password" type="password" required placeholder="At least 4 characters">
+          </label>
+          <label class="check-row">
+            <input name="remember" type="checkbox" checked>
+            <span>Remember me on this device</span>
+          </label>
+          <button class="primary-action" type="submit">Log In</button>
+          <p class="auth-note">New student accounts are created automatically on first login. Admin: admin@artiaze.com / admin123</p>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <template id="articleCardTemplate">
+    <article class="article-card">
+      <img alt="">
+      <div class="card-body">
+        <div class="chip-row"></div>
+        <h3></h3>
+        <p></p>
+        <div class="card-meta"></div>
+        <div class="card-actions">
+          <button class="text-button read-button">Read</button>
+          <button class="icon-button like-button" aria-label="Like article">♡</button>
+          <button class="icon-button share-button" aria-label="Share article">↗</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
